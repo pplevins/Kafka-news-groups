@@ -4,6 +4,9 @@ from sklearn.datasets import fetch_20newsgroups
 
 
 class DataFetcher:
+    def __init__(self):
+        self.interesting, self.not_interesting = DataFetcher.fetch_data_from_sklearn()
+
     @staticmethod
     def fetch_data_from_sklearn():
         interesting_categories = ["alt.atheism",
@@ -28,14 +31,30 @@ class DataFetcher:
                                       "talk.religion.misc"]
         newsgroups_interesting = fetch_20newsgroups(subset="all", categories=interesting_categories)
         newsgroups_not_interesting = fetch_20newsgroups(subset="all", categories=not_interesting_categories)
-        return newsgroups_interesting.data, newsgroups_not_interesting.data
+
+        interesting = {"massages": []}
+        for i in range(len(newsgroups_interesting.data)):
+            subject = {
+                "category": newsgroups_interesting.target_names[newsgroups_interesting.target[i]],
+                "text": newsgroups_interesting.data[i]
+            }
+            interesting["massages"].append(subject)
+        not_interesting = {"massages": []}
+        for i in range(len(newsgroups_not_interesting.data)):
+            subject = {
+                "category": newsgroups_not_interesting.target_names[newsgroups_not_interesting.target[i]],
+                "text": newsgroups_not_interesting.data[i]
+            }
+            not_interesting["massages"].append(subject)
+
+        return interesting["massages"], not_interesting["massages"]
 
     @staticmethod
     def fetch_data_from_json():
-        with open("data/newsgroups_interesting.json", "r", encoding="utf-8") as json_file:
+        with open("data/newsgroups_interesting (3).json", "r", encoding="utf-8") as json_file:
             newsgroups_interesting = json.load(json_file)
 
-        with open("data/newsgroups_not_interesting.json", "r", encoding="utf-8") as json_file:
+        with open("data/newsgroups_not_interesting (3).json", "r", encoding="utf-8") as json_file:
             newsgroups_not_interesting = json.load(json_file)
 
         return newsgroups_interesting, newsgroups_not_interesting
