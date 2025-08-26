@@ -5,7 +5,7 @@ from sklearn.datasets import fetch_20newsgroups
 
 class DataFetcher:
     def __init__(self):
-        interesting, not_interesting = DataFetcher.fetch_data_from_sklearn()
+        interesting, not_interesting = DataFetcher.fetch_data_from_json()
         self.data = {"interesting": interesting, "not_interesting": not_interesting}
         interesting_categories = ["alt.atheism",
                                   "comp.graphics",

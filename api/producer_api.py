@@ -10,5 +10,5 @@ producer_service = ProducerService()
     "/",
     response_description="Producing news massages and publishing to Kafka",
 )
-async def publish():
-    return await producer_service.publish()
+def publish():
+    producer_service.publish()
