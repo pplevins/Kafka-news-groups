@@ -19,4 +19,5 @@ class ProducerService:
                     massages.append(massage)
                 if not categories:
                     break
-            self._producer.publish_massage(topic=topic, msg=massages)
+            for massage in massages:
+                self._producer.publish_massage(topic=topic, msg=massage)
